@@ -2,10 +2,16 @@
     color: white;
 }
 
-
 :host ::ng-deep  .po-toolbar-title{
-    color: #FFAC2B;
+    color: black;
     font-weight: bold;
+    font-size: 50px;
+    padding-left: 27px;
+    padding-top: 47px;
+    padding-bottom: 47px;
+    text-transform: capitalize;
+    display: inline-flex;
+
 }
 
 :host ::ng-deep .po-menu{
@@ -18,13 +24,12 @@
 
 :host ::ng-deep .po-icon-menu-open{
     color: white;
-    position: center;
 }
 
 
 :host ::ng-deep .po-menu-item-wrapper{
     padding: 0px;
-    margin-top: 50px
+    margin-top: 167px;
 }
 
 

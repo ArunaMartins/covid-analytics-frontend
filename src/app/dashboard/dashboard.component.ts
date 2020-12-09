@@ -7,6 +7,8 @@ import { ChartDataSets } from 'chart.js';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  //GRÁFICO: Casos de Covid pelo Mundo ao Ano
+
   // Dados Gráfico
 
   /** Propriedade das linhas do Gráfico
@@ -43,7 +45,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   // Linha do Gráfico
-  public lsLinhasEstado: ChartDataSets[] = [
+  public lsLinhasPaises: ChartDataSets[] = [
     { data: [90, -5, 8, 6, 1, -6, -3, -5, 1, 4, 2, 0], label: 'Brazil' },
     { data: [-3, 70, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'India' },
     { data: [-3, 2, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Russia' },
@@ -80,6 +82,55 @@ export class DashboardComponent implements OnInit {
   public graphEvoShowLegend: boolean = true; // Demonstra se vai ter a legenda ou não
   public graphEvoTipo: string = 'bar'; // Tipo do Gráfico
   public graphEvoOptions: any = {
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0,
+      },
+      point: {
+        radius: 7,
+        borderWidth: 3,
+        hitRadius: 5,
+        hoverRadius: 10,
+        hoverBorderWidth: 3,
+      },
+    },
+    legend: { position: 'bottom' },
+  };
+
+  //GRÁFICO: Comparativo de Casos Covid pelo Mundo
+
+  public doughnutChartComparativeGlobalLabels = [
+    'Brazil',
+    'India',
+    'Russia',
+    'South Africa',
+    'Chile',
+    'Pakistan',
+    'Iran',
+    'Italy',
+    'France',
+    'Spain',
+    'New Zealand',
+    'Australia',
+  ];
+  public doughnutChartComparativeGlobalData = [
+    120,
+    150,
+    180,
+    90,
+    100,
+    121,
+    130,
+    125,
+    140,
+    155,
+    190,
+    110,
+  ];
+  public doughnutChartComparativeGlobalType = 'doughnut';
+
+  public doughnutChartComparativeGlobalOptions: any = {
     responsive: true,
     elements: {
       line: {

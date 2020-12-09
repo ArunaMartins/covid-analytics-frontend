@@ -1,19 +1,32 @@
 <body background=".\assets\background-covid.png" class="background">
-  <div>
-    <h3 class="title-graph">Casos de Covid pelo Mundo</h3>
-  </div>
   <span class="po-lg-8 po-md-8 po-sm-8 po-pm-8">
+    <div>
+      <h3 class="title-graph">Casos de Covid pelo Mundo ao Ano</h3>
+    </div>
     <canvas
       class="graphGlobal"
       baseChart
       height="60"
-      [datasets]="lsLinhasEstado"
+      [datasets]="lsLinhasPaises"
       [labels]="graphEvoFooter"
       [options]="graphEvoOptions"
-      [colors]="graphEvoLineProp"
       [legend]="graphEvoShowLegend"
       [chartType]="graphEvoTipo"
     >
     </canvas>
   </span>
+  <span class="po-lg-5 po-md-5 po-sm-5 po-pm-5">
+    <div>
+      <h3 class="title-graph">Comparativo de Casos Covid pelo Mundo</h3>
+    </div>
+    <canvas
+      baseChart
+      [data]="doughnutChartComparativeGlobalData"
+      [labels]="doughnutChartComparativeGlobalLabels"
+      [options]="doughnutChartComparativeGlobalOptions"
+      [chartType]="doughnutChartComparativeGlobalType"
+    ></canvas>
+  </span>
 </body>
+
+<!-- [colors]="graphEvoLineProp" -->

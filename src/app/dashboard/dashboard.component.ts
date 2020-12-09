@@ -4,54 +4,99 @@ import { ChartDataSets } from 'chart.js';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-	// Dados Gráfico
-	// Linha do Gráfico
-	public lsLinhasEstado: ChartDataSets[] = [
-		{ data: [1, 2, -5, 4, -10,  7, -9,  4, -2, -3, -1, 2], label: 'SP' },
-		{ data: [9, -5, 8, 6,   1, -6, -3, -5, 1, 4, 2, 0], label: 'RJ' },
-		{ data: [-3, 7, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'SC' }/*,
-		{ data: [-3, 2, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'AA' },
-		{ data: [-3, 3, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'BB' },
-		{ data: [-3, 47, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'CC' },
-		{ data: [-3, 5, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'DD' },
-		{ data: [-3, 67, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'ES' },
-		{ data: [-3, 27, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'DA' },
-		{ data: [-3, 14, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'SC' },
-		{ data: [-3, 47, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'DS' },
-		{ data: [-3, 37, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'CS' },
-		{ data: [-3, 76, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'AF' },
-		{ data: [-3, 237, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'TT' },
-		{ data: [-3, 317, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'WW' },
-		{ data: [-3, 72, 3, -3,  7,  2, -2, -3, -1, 2, 4, 3], label: 'EE' }*/
-	];
-	// Rodapé do Gráfico
-	public graphEvoFooter: Array<any> = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+  // Dados Gráfico
 
-	public graphEvoShowLegend: boolean = true; // Demonstra se vai ter a legenda ou não
-	public graphEvoTipo: string = 'bar'; // Tipo do Gráfico
-	public graphEvoOptions: any = {
-		responsive: true,
-		elements: {
-			line: {
-				tension: 0,
-			},
-			point: {
-				radius: 7,
-				borderWidth: 2,
-				hitRadius: 5,
-				hoverRadius: 10,
-				hoverBorderWidth: 2,
-			},
-		},
-		legend: { position: 'bottom' },
+  /** Propriedade das linhas do Gráfico
+   *  https://www.npmjs.com/package/ng2-charts
+   */
+  public graphEvoLineProp: Array<any> = [
+    {
+      // Em Andamento - Azul Escuro #0d729c
+      backgroundColor: 'rgba(13, 114, 156, 0)',
+      borderColor: 'rgba(13, 114, 156, 1)',
+      pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+      pointBorderColor: 'rgba(13, 114, 156, 1)',
+      pointHoverBackgroundColor: 'rgba(13, 114, 156, 1)',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+    },
+    {
+      // Casos Novos - Azul Claro #29b6c5
+      backgroundColor: 'rgba(41, 182, 197, 0)',
+      borderColor: 'rgba(41, 182, 197, 1)',
+      pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+      pointBorderColor: 'rgba(41, 182, 197, 1)',
+      pointHoverBackgroundColor: 'rgba(41, 182, 197, 1)',
+      pointHoverBorderColor: 'rgba(41, 182, 197 ,1)',
+    },
+    {
+      // Casos Encerrados - Laranja #ea9b3e
+      backgroundColor: 'rgba(234, 155, 62, 0)',
+      borderColor: 'rgba(234, 155, 62, 1)',
+      pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+      pointBorderColor: 'rgba(234, 155, 62, 1)',
+      pointHoverBackgroundColor: 'rgba(234, 155, 62, 1)',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+    },
+  ];
+
+  // Linha do Gráfico
+  public lsLinhasEstado: ChartDataSets[] = [
+    { data: [90, -5, 8, 6, 1, -6, -3, -5, 1, 4, 2, 0], label: 'Brazil' },
+    { data: [-3, 70, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'India' },
+    { data: [-3, 2, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Russia' },
+    { data: [-3, 3, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'South Africa' },
+    {
+      data: [-3, 47, 3, -3, 7, 200, -2, -3, -1, 2, 4, 3],
+      label: 'United States',
+    },
+    { data: [-3, 5, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Chile' },
+    { data: [-3, 67, 4, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Pakistan' },
+    { data: [-3, 27, 30, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Iran' },
+    { data: [-3, 14, 50, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Italy' },
+    { data: [-3, 47, 60, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'France' },
+    { data: [-3, 37, 3, -3, 10, 2, -2, -3, -1, 2, 4, 3], label: 'Spain' },
+    { data: [-3, 76, 3, -3, 11, 2, -2, -3, -1, 2, 4, 3], label: 'New Zealand' },
+    { data: [-3, 237, 3, -3, 17, 2, -2, -3, -1, 2, 4, 3], label: 'Australia' },
+  ];
+  // Rodapé do Gráfico
+  public graphEvoFooter: Array<any> = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  public graphEvoShowLegend: boolean = true; // Demonstra se vai ter a legenda ou não
+  public graphEvoTipo: string = 'bar'; // Tipo do Gráfico
+  public graphEvoOptions: any = {
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0,
+      },
+      point: {
+        radius: 7,
+        borderWidth: 3,
+        hitRadius: 5,
+        hoverRadius: 10,
+        hoverBorderWidth: 3,
+      },
+    },
+    legend: { position: 'bottom' },
   };
-  
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  constructor() {}
 
+  ngOnInit(): void {}
 }

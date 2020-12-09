@@ -1,17 +1,21 @@
-//.background{
-    //background-size: 536px 1005px;
-    //background-repeat: no-repeat;
-    //display: block;
-    //margin-left: 660px;
-    //background-position: top;
-    //margin-top: 1px;
-    //background-color: red;
+.background {
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 100%;
+  margin-left: 16px;
+  bottom: 200px;
+}
 
-//}
+.title-graph {
+  color: #ffb200;
+  font-weight: 550;
+  padding: 15px;
+  margin-left: 150px;
+}
 
-.background{
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: 436px 1005px;
-    margin-left: 16px;
+:host ::ng-deep .po-lg-8,
+:host ::ng-deep .po-md-8,
+:host ::ng-deep .po-sm-8,
+:host ::ng-deep .po-pm-8 {
+  margin-left: 150px;
 }

@@ -7,9 +7,7 @@ import { ChartDataSets } from 'chart.js';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  //GRÁFICO: Casos de Covid pelo Mundo ao Ano
-
-  // Dados Gráfico
+  //DADOS DO GRÁFICO: Casos de Covid pelo Mundo ao Ano
 
   /** Propriedade das linhas do Gráfico
    *  https://www.npmjs.com/package/ng2-charts
@@ -98,12 +96,13 @@ export class DashboardComponent implements OnInit {
     legend: { position: 'bottom' },
   };
 
-  //GRÁFICO: Comparativo de Casos Covid pelo Mundo
+  //DADOS DO GRÁFICO: Comparativo de Casos Covid pelo Mundo
 
-  public doughnutChartComparativeGlobalLabels = [
+  public pieChartComparativeGlobalLabels = [
     'Brazil',
     'India',
     'Russia',
+    'United States',
     'South Africa',
     'Chile',
     'Pakistan',
@@ -114,9 +113,10 @@ export class DashboardComponent implements OnInit {
     'New Zealand',
     'Australia',
   ];
-  public doughnutChartComparativeGlobalData = [
+  public pieChartComparativeGlobalData = [
     120,
     150,
+    130,
     180,
     90,
     100,
@@ -128,9 +128,39 @@ export class DashboardComponent implements OnInit {
     190,
     110,
   ];
-  public doughnutChartComparativeGlobalType = 'doughnut';
+  public pieChartComparativeGlobalType = 'pie';
 
-  public doughnutChartComparativeGlobalOptions: any = {
+  public pieChartComparativeGlobalOptions: any = {
+    responsive: true,
+    elements: {
+      line: {
+        tension: 0,
+      },
+      point: {
+        radius: 7,
+        borderWidth: 3,
+        hitRadius: 5,
+        hoverRadius: 10,
+        hoverBorderWidth: 3,
+      },
+    },
+    legend: { position: 'bottom' },
+  };
+
+  //DADOS DO GRÁFICO: Evolução de Casos Covid pelo País
+
+  public splineChartComparativeGlobalLabels = ['United States'];
+
+  public lsLinhasPais: ChartDataSets[] = [
+    {
+      data: [-3, 47, 3, -3, 7, 200, -2, -3, -1, 2, 4, 3],
+      label: 'United States',
+    },
+  ];
+
+  public splineChartComparativeGlobalType = 'line';
+
+  public splineChartComparativeGlobalOptions: any = {
     responsive: true,
     elements: {
       line: {

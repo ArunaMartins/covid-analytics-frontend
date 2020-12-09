@@ -1,4 +1,8 @@
-<body background=".\assets\background-covid.png" class="background">
+<body
+  class="body"
+  background=".\assets\background-covid-toolbar(2).jpg"
+  class="background"
+>
   <span class="po-lg-8 po-md-8 po-sm-8 po-pm-8">
     <div>
       <h3 class="title-graph">Casos de Covid pelo Mundo ao Ano</h3>
@@ -17,14 +21,28 @@
   </span>
   <span class="po-lg-5 po-md-5 po-sm-5 po-pm-5">
     <div>
-      <h3 class="title-graph">Comparativo de Casos Covid pelo Mundo</h3>
+      <h3 class="title-graph">Comparativo de Casos de Covid pelo Mundo</h3>
     </div>
     <canvas
+      class="pieGlobal"
       baseChart
-      [data]="doughnutChartComparativeGlobalData"
-      [labels]="doughnutChartComparativeGlobalLabels"
-      [options]="doughnutChartComparativeGlobalOptions"
-      [chartType]="doughnutChartComparativeGlobalType"
+      [data]="pieChartComparativeGlobalData"
+      [labels]="pieChartComparativeGlobalLabels"
+      [options]="pieChartComparativeGlobalOptions"
+      [chartType]="pieChartComparativeGlobalType"
+    ></canvas>
+  </span>
+  <span class="po-lg-5 po-md-5 po-sm-5 po-pm-5">
+    <div>
+      <h3 class="title-graph">Comparativo de Casos de Covid pelo Mundo</h3>
+    </div>
+    <canvas
+      class="lineGlobal"
+      baseChart
+      [datasets]="lsLinhasPais"
+      [labels]="splineChartComparativeGlobalLabels"
+      [options]="splineChartComparativeGlobalOptions"
+      [chartType]="splineChartComparativeGlobalType"
     ></canvas>
   </span>
 </body>

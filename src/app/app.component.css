@@ -1,30 +1,50 @@
+.background {
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 436px 1005px;
+  margin-left: 16px;
+}
+
 :host ::ng-deep .po-menu-collapse-button,
 :host ::ng-deep .po-menu-item,
 :host ::ng-deep .po-menu-item-no-data {
-  color: white;
+  color: #fa9092;
 }
 
-:host ::ng-deep .po-toolbar-title {
-  color: black;
+:host ::ng-deep .po-page-default,
+:host ::ng-deep .po-page-content,
+:host ::ng-deep .po-page-content,
+:host ::ng-deep .po-wrapper,
+:host ::ng-deep .po-page {
+  background-color: #f5f5f5;
+}
+
+.titles {
+  margin-left: 100px;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+
+.title {
+  font-size: 80px;
   font-weight: bold;
-  font-size: 50px;
-  padding-left: 27px;
-  padding-top: 47px;
-  padding-bottom: 47px;
-  text-transform: capitalize;
-  display: inline-flex;
+}
+
+.subtitle {
+  font-size: 30px;
+  font-style: italic;
 }
 
 :host ::ng-deep .po-menu {
-  background-color: #0037a0;
+  background-color: white;
 }
 
 :host ::ng-deep .po-icon-menu-close {
-  color: white;
+  color: #fa9092;
 }
 
 :host ::ng-deep .po-icon-menu-open {
-  color: white;
+  color: #fa9092;
 }
 
 :host ::ng-deep .po-menu-item-wrapper {

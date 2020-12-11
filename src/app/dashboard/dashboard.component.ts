@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
+import { Generics } from '../core/generics';
+import { HttpServiceService } from '../core/http-service.service';
+import { PoSelectComponent } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterContentInit {
   //DADOS DO GRÁFICO: Casos de Covid pelo Mundo ao Ano
-
+  lsPeriodos = Generics.lsMesesConsulta;
   /** Propriedade das linhas do Gráfico
    *  https://www.npmjs.com/package/ng2-charts
    */
-  public graphEvoLineProp: Array<any> = [
+  graphEvoLineProp: Array<any> = [
     {
       // Em Andamento - Azul Escuro #0d729c
       backgroundColor: 'rgba(13, 114, 156, 0)',
@@ -43,26 +46,9 @@ export class DashboardComponent implements OnInit {
   ];
 
   // Linha do Gráfico
-  public lsLinhasPaises: ChartDataSets[] = [
-    { data: [90, -5, 8, 6, 1, -6, -3, -5, 1, 4, 2, 0], label: 'Brazil' },
-    { data: [-3, 70, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'India' },
-    { data: [-3, 2, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Russia' },
-    { data: [-3, 3, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'South Africa' },
-    {
-      data: [-3, 47, 3, -3, 7, 200, -2, -3, -1, 2, 4, 3],
-      label: 'United States',
-    },
-    { data: [-3, 5, 3, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Chile' },
-    { data: [-3, 67, 4, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Pakistan' },
-    { data: [-3, 27, 30, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Iran' },
-    { data: [-3, 14, 50, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'Italy' },
-    { data: [-3, 47, 60, -3, 7, 2, -2, -3, -1, 2, 4, 3], label: 'France' },
-    { data: [-3, 37, 3, -3, 10, 2, -2, -3, -1, 2, 4, 3], label: 'Spain' },
-    { data: [-3, 76, 3, -3, 11, 2, -2, -3, -1, 2, 4, 3], label: 'New Zealand' },
-    { data: [-3, 237, 3, -3, 17, 2, -2, -3, -1, 2, 4, 3], label: 'Australia' },
-  ];
+  lsLinhasPaises: ChartDataSets[] = [];
   // Rodapé do Gráfico
-  public graphEvoFooter: Array<any> = [
+  footerCasosCovidMundo: Array<any> = [
     '1',
     '2',
     '3',
@@ -94,9 +80,9 @@ export class DashboardComponent implements OnInit {
     '30',
   ];
 
-  public graphEvoShowLegend: boolean = true; // Demonstra se vai ter a legenda ou não
-  public graphEvoTipo: string = 'bar'; // Tipo do Gráfico
-  public graphEvoOptions: any = {
+  graphEvoShowLegend: boolean = true; // Demonstra se vai ter a legenda ou não
+  graphEvoTipo: string = 'bar'; // Tipo do Gráfico
+  graphEvoOptions: any = {
     responsive: true,
     elements: {
       line: {
@@ -115,7 +101,7 @@ export class DashboardComponent implements OnInit {
 
   //DADOS DO GRÁFICO: Comparativo de Casos Covid pelo Mundo
 
-  public pieChartComparativeGlobalLabels = [
+  pieChartComparativeGlobalLabels = [
     'Brazil',
     'India',
     'Russia',
@@ -130,7 +116,7 @@ export class DashboardComponent implements OnInit {
     'New Zealand',
     'Australia',
   ];
-  public pieChartComparativeGlobalData = [
+  pieChartComparativeGlobalData = [
     120,
     150,
     130,
@@ -145,9 +131,9 @@ export class DashboardComponent implements OnInit {
     190,
     110,
   ];
-  public pieChartComparativeGlobalType = 'pie';
+  pieChartComparativeGlobalType = 'pie';
 
-  public pieChartComparativeGlobalOptions: any = {
+  pieChartComparativeGlobalOptions: any = {
     responsive: true,
     elements: {
       line: {
@@ -166,18 +152,18 @@ export class DashboardComponent implements OnInit {
 
   //DADOS DO GRÁFICO: Evolução de Casos Covid pelo País
 
-  public splineChartComparativeGlobalLabels = ['United States'];
+  splineChartComparativeGlobalLabels = ['United States'];
 
-  public lsLinhasPais: ChartDataSets[] = [
+  lsLinhasPais: ChartDataSets[] = [
     {
       data: [-3, 47, 3, -3, 7, 200, -2, -3, -1, 2, 4, 3],
       label: 'United States',
     },
   ];
 
-  public splineChartComparativeGlobalType = 'line';
+  splineChartComparativeGlobalType = 'line';
 
-  public splineChartComparativeGlobalOptions: any = {
+  splineChartComparativeGlobalOptions: any = {
     responsive: true,
     elements: {
       line: {
@@ -194,7 +180,51 @@ export class DashboardComponent implements OnInit {
     legend: { position: 'bottom' },
   };
 
-  constructor() {}
+  @ViewChild("selPeriodo", { static: true}) slPeriodo: PoSelectComponent;
+  constructor(private http: HttpServiceService) {
+    
+  }
+  ngAfterContentInit(): void {
 
-  ngOnInit(): void {}
+  }
+
+  ngOnInit(): void {
+    this.lsLinhasPaises = []
+    let arrCountries = Generics.lsCountries;
+    
+    for (const country of arrCountries) {
+      this.lsLinhasPaises.push({ data: [], label: country})
+    }
+  }
+
+  changePeriodo(periodoSelecionado: string){
+    const req = this.http.getPaises(periodoSelecionado, Generics.lsCountries)
+    let arrPeriodo = periodoSelecionado.split('-')
+    this.footerCasosCovidMundo = []
+    this.lsLinhasPaises = []
+    for (let index = 0; index < req.quantDias; index++) {
+      let dia = '0' + (index+1).toString()
+      let diaMes = ('0' + dia).substring(('0'+dia).length-2,('0'+dia).length) + '/' + arrPeriodo[1]
+      this.footerCasosCovidMundo.push(diaMes)
+    }
+    
+    req.observer.subscribe(
+      (response: any)=>{
+        response.forEach(medicaoPais => {
+          let lsDados: Array<number> = []
+
+          medicaoPais.periodos.forEach(periodo => {
+            lsDados = [... lsDados, periodo.casos]
+          });
+
+          let newLine: ChartDataSets = {
+            label: medicaoPais.nome,
+            data: lsDados
+          }
+
+          this.lsLinhasPaises = [... this.lsLinhasPaises, newLine]
+        });
+      }
+    )
+  }
 }

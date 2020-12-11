@@ -3,6 +3,7 @@
   background=".\assets\background-covid-toolbar(2).jpg"
   class="background"
 >
+  <po-select #selPeriodo [p-options]="lsPeriodos" (p-change)="changePeriodo($event)"></po-select>
   <span class="po-lg-8 po-md-8 po-sm-8 po-pm-8">
     <div>
       <h3 class="title-graph">Casos de Covid pelo Mundo ao Ano</h3>
@@ -12,7 +13,7 @@
       baseChart
       height="60"
       [datasets]="lsLinhasPaises"
-      [labels]="graphEvoFooter"
+      [labels]="footerCasosCovidMundo"
       [options]="graphEvoOptions"
       [legend]="graphEvoShowLegend"
       [chartType]="graphEvoTipo"

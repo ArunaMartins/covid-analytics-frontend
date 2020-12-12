@@ -1,17 +1,18 @@
 <body class="body">
-  <po-select
+  <po-select class="po-lg-12 po-md-12 po-sm-12"
     #selPeriodo
+    p-placeholder="Selecione um período"
     [p-options]="lsPeriodos"
     (p-change)="changePeriodo($event)"
   ></po-select>
-  <span class="po-lg-8 po-md-8 po-sm-8 po-pm-8">
+  <po-container class="po-lg-12 po-md-12 po-sm-12 po-mb-2">
     <div>
-      <h3 class="title-graph">Casos de Covid pelo Mundo ao Ano</h3>
+      <h3 class="title-graph">Casos de Covid pelo Mundo no Período</h3>
     </div>
     <canvas
       class="graphGlobal"
       baseChart
-      height="60"
+      height="50"
       [datasets]="lsLinhasPaises"
       [labels]="footerCasosCovidMundo"
       [options]="graphEvoOptions"
@@ -19,35 +20,46 @@
       [chartType]="graphEvoTipo"
     >
     </canvas>
-  </span>
-  <span class="po-lg-5 po-md-5 po-sm-5 po-pm-5">
+  </po-container>
+  <po-container class="po-lg-6 po-md-12 po-sm-12 po-mb-2">
     <div>
       <h3 class="title-graph">Comparativo de Casos de Covid pelo Mundo</h3>
     </div>
     <canvas
       class="pieGlobal"
-      height="60"
+      width="400" height="120"
       baseChart
       [data]="pieChartComparativeGlobalData"
       [labels]="pieChartComparativeGlobalLabels"
       [options]="pieChartComparativeGlobalOptions"
       [chartType]="pieChartComparativeGlobalType"
     ></canvas>
-  </span>
-  <span class="po-lg-5 po-md-5 po-sm-5 po-pm-5">
+  </po-container>
+  <po-container class="po-lg-6 po-md-12 po-sm-12 po-mb-2">
     <div>
-      <h3 class="title-graph">Avanço do Covid no País</h3>
+      <h3 class="po-lg-7 po-md-7 po-sm-12 title-graph">Avanço do Covid no País</h3>
+      <po-select class="po-pull-right po-lg-4 po-md-4 po-sm-12"
+        p-placeholder="Selecione o pais"
+        [p-options]="lsPaises"
+        (p-change)="changePais($event)"
+      ></po-select>
     </div>
-    <canvas
+    <!--canvas
       class="lineGlobal"
       height="60"
       baseChart
       [datasets]="lsLinhasPais"
-      [labels]="splineChartComparativeGlobalLabels"
+      [labels]="footerCasosCovidMundo"
       [options]="splineChartComparativeGlobalOptions"
       [chartType]="splineChartComparativeGlobalType"
-    ></canvas>
-  </span>
+    ></canvas-->
+    <canvas baseChart width="400" height="120"
+                [datasets]="lineChartData"
+                [labels]="footerCasosCovidMundo"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [chartType]="lineChartType"></canvas>
+  </po-container>
 </body>
 
 <!-- [colors]="graphEvoLineProp" -->

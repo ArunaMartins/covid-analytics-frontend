@@ -1,5 +1,9 @@
 import { PoSelectOption } from '@po-ui/ng-components';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+    providedIn: 'root'
+})
 export class Generics {
     static lsCountries: Array<string> = [
 		'brazil',
@@ -57,6 +61,19 @@ export class Generics {
             value: '2021-01'
         },
     ]
+
+    makeCountryCombo(): Array<PoSelectOption>{
+        let lsCountryOptions: Array<PoSelectOption> = [];
+
+        Generics.lsCountries.forEach(
+            item=>{
+                let value = item
+                let label = item.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))).replace('-', ' ');
+                lsCountryOptions.push({ value: value, label: label })
+            }
+        )
+        return lsCountryOptions
+    }
     
     static calcPeriodo(periodoSelecionado: string): { dataInicial: Date, dataFinal: Date, quant: number }{
         let arrData = periodoSelecionado.split('-')
@@ -64,10 +81,7 @@ export class Generics {
         let dataFinal = new Date(parseInt(arrData[0]), parseInt(arrData[1]),0);
         let quantidadeDias = 0;
 
-
         quantidadeDias = dataFinal.getDate() - dataInicial.getDate() +1
-
-        console.log("Periodo Selecionado: " + periodoSelecionado + '| ' + dataInicial.toISOString() + "| " + dataFinal.toISOString() + "| " + quantidadeDias.toString())
 
         return {
             dataInicial: dataInicial,

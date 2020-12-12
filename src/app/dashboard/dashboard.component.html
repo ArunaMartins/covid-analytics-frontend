@@ -1,5 +1,6 @@
 <body class="body">
-  <po-select class="po-lg-12 po-md-12 po-sm-12"
+  <po-select
+    class="po-lg-12 po-md-12 po-sm-12"
     #selPeriodo
     p-placeholder="Selecione um período"
     [p-options]="lsPeriodos"
@@ -27,7 +28,8 @@
     </div>
     <canvas
       class="pieGlobal"
-      width="400" height="120"
+      width="400"
+      height="120"
       baseChart
       [data]="pieChartComparativeGlobalData"
       [labels]="pieChartComparativeGlobalLabels"
@@ -37,28 +39,64 @@
   </po-container>
   <po-container class="po-lg-6 po-md-12 po-sm-12 po-mb-2">
     <div>
-      <h3 class="po-lg-7 po-md-7 po-sm-12 title-graph">Avanço do Covid no País</h3>
-      <po-select class="po-pull-right po-lg-4 po-md-4 po-sm-12"
+      <h3 class="po-lg-7 po-md-7 po-sm-12 title-graph">
+        Avanço do Covid no País
+      </h3>
+      <po-select
+        class="po-pull-right po-lg-4 po-md-4 po-sm-12"
         p-placeholder="Selecione o pais"
         [p-options]="lsPaises"
         (p-change)="changePais($event)"
       ></po-select>
     </div>
-    <!--canvas
-      class="lineGlobal"
-      height="60"
+    <canvas
       baseChart
-      [datasets]="lsLinhasPais"
+      width="400"
+      height="120"
+      [datasets]="lineChartData"
       [labels]="footerCasosCovidMundo"
-      [options]="splineChartComparativeGlobalOptions"
-      [chartType]="splineChartComparativeGlobalType"
-    ></canvas-->
-    <canvas baseChart width="400" height="120"
-                [datasets]="lineChartData"
-                [labels]="footerCasosCovidMundo"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [chartType]="lineChartType"></canvas>
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [chartType]="lineChartType"
+    ></canvas>
+  </po-container>
+  <po-container class="po-lg-6 po-md-12 po-sm-12 po-mb-2">
+    <div>
+      <h3 class="title-graph">Comparativo de Casos de Covid pelos Estados</h3>
+    </div>
+    <canvas
+      class="pieEstadual"
+      width="400"
+      height="120"
+      baseChart
+      [data]="pieChartComparativeEstadualData"
+      [labels]="pieChartComparativeEstadualLabels"
+      [options]="pieChartComparativeEstadualOptions"
+      [chartType]="pieChartComparativeEstadualType"
+    ></canvas>
+  </po-container>
+  <po-container class="po-lg-6 po-md-12 po-sm-12 po-mb-2">
+    <div>
+      <h3 class="po-lg-7 po-md-7 po-sm-12 title-graph">
+        Avanço do Covid no Estado
+      </h3>
+      <po-select
+        class="po-pull-right po-lg-4 po-md-4 po-sm-12"
+        p-placeholder="Selecione o Estado"
+        [p-options]="lsEstadual"
+        (p-change)="changeEstado($event)"
+      ></po-select>
+    </div>
+    <canvas
+      baseChart
+      width="400"
+      height="120"
+      [datasets]="lineChartEstadualData"
+      [labels]="footerCasosCovidEstados"
+      [options]="lineChartComparativeEstadualOptions"
+      [colors]="lineChartColors"
+      [chartType]="lineChartType"
+    ></canvas>
   </po-container>
 </body>
 

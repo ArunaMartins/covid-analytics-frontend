@@ -7,8 +7,8 @@ import {
 } from 'chart.js';
 import { Generics } from '../core/generics';
 import { HttpServiceService } from '../core/http-service.service';
-import { PoSelectComponent, PoNotificationService } from '@po-ui/ng-components';
-import { Color, Label } from 'ng2-charts';
+import { PoSelectComponent, PoNotificationService, PoSelectOption } from '@po-ui/ng-components';
+import { Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,9 +16,19 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterContentInit {
+
+  //Loadings
+  loadingGlobal: boolean = false;
+  loadingCompareGlobal: boolean = false;
+  loadingPais: boolean = false;
+  loadingCompareState: boolean = false;
+  loadingState: boolean = false;
+
+
   //DADOS DO GRÁFICO: Casos de Covid pelo Mundo ao Ano
   lsPeriodos = Generics.lsMesesConsulta;
   lsPaises;
+  tokenAuth: string = ""; 
   paisSelecionado: string = '';
   /** Propriedade das linhas do Gráfico
    *  https://www.npmjs.com/package/ng2-charts
@@ -155,6 +165,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   ];
 
   splineChartComparativeGlobalType = 'line';
+  lsEstados: Array<PoSelectOption> = [];
 
   @ViewChild('selPeriodo', { static: true }) slPeriodo: PoSelectComponent;
   constructor(
@@ -171,19 +182,33 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     let arrCountries = Generics.lsCountries;
 
     this.lsPaises = this.generics.makeCountryCombo();
+    this.lsEstados = this.generics.makeStatesCombo();
   }
 
   changePeriodo(periodoSelecionado: string) {
     const req = this.http.getPaises(periodoSelecionado, Generics.lsCountries);
+    const reqEstado = this.http.getEstados(periodoSelecionado, Generics.lsStates)
     const arrPeriodo = periodoSelecionado.split('-');
     this.footerCasosCovidMundo = [];
     this.lsLinhasPaises = [];
     this.pieChartComparativeGlobalLabels = [];
     this.pieChartComparativeGlobalData = [];
     this.splineChartComparativeGlobalLabels = [];
+    this.pieChartComparativeEstadualData = [];
+    this.pieChartComparativeEstadualLabels = [];
+    this.lineChartEstadoData = [];
     this.lsLinhasPais = [];
+
+    this.loadingGlobal = true;
+    this.loadingCompareGlobal = true;
+    this.loadingCompareState = true;
+
     if (this.paisSelecionado != '') {
       this.changePais(this.paisSelecionado);
+    }
+
+    if (this.estadoSelecionado != ''){
+      this.changeEstado(this.estadoSelecionado);
     }
 
     for (let index = 0; index < req.quantDias; index++) {
@@ -215,7 +240,28 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
         this.lsLinhasPaises = [...this.lsLinhasPaises, newLine];
       });
+
+    this.loadingGlobal = false;
+    this.loadingCompareGlobal = false;
     });
+
+    reqEstado.observer.subscribe((response: any)=>{
+      console.log(response)
+      response.forEach(estado => {
+        let somaEstado: number = 0;
+        estado.periodos.forEach(periodo => {
+          somaEstado += periodo.casos
+        });
+        this.pieChartComparativeEstadualLabels.push(estado.nome.trim()
+          .toLowerCase()
+          .replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
+          .replace('-', ' '))
+        this.pieChartComparativeEstadualData.push(somaEstado)
+      });
+      this.loadingCompareState = false;
+    })
+
+    
   }
 
   lineChartData: ChartDataSets[] = [
@@ -283,7 +329,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         'Selecione o período para ver a evolução do COVID no país selecionado!'
       );
     }
-
+    this.loadingPais = true;
+    
     this.paisSelecionado = paisSelecionado;
     const req = this.http.getPaises(this.slPeriodo.selectedValue, [
       paisSelecionado,
@@ -298,11 +345,14 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
         this.lineChartData.push({ data: lsDados, label: medicaoPais.nome });
       });
+      this.loadingPais = false;
     });
   }
 
-  estadoSelecionado: string;
-  lineChartEstadoData: ChartDataSets[];
+  estadoSelecionado: string = "";
+  lineChartEstadoData: ChartDataSets[] = [
+    { data: [], label: 'Selecione o Estado e o Período' },
+  ];
 
   changeEstado(estadoSelecionado: string) {
     if (this.slPeriodo.selectedValue == undefined) {
@@ -310,11 +360,13 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         'Selecione o período para ver a evolução do COVID no estado selecionado!'
       );
     }
-
+    this.loadingState = true;
     this.estadoSelecionado = estadoSelecionado;
+
     const req = this.http.getEstados(this.slPeriodo.selectedValue, [
       estadoSelecionado,
     ]);
+
     req.observer.subscribe((response: any) => {
       this.lineChartEstadoData = [];
       response.forEach((medicaoEstado) => {
@@ -325,9 +377,21 @@ export class DashboardComponent implements OnInit, AfterContentInit {
 
         this.lineChartEstadoData.push({
           data: lsDados,
-          label: medicaoEstado.nome,
+          label: medicaoEstado.nome.trim()
+          .toLowerCase()
+          .replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
+          .replace('-', ' ')
         });
       });
+      this.loadingState = false;
     });
+  }
+
+  changeToken(token: string){
+    if (token != undefined){
+      this.http.auth = token;
+    } else {
+      this.http.auth = "";
+    }
   }
 }

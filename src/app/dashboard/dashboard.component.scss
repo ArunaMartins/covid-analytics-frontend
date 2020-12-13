@@ -10,20 +10,3 @@
   padding: 15px;
   margin-left: 10px;
 }
-
-:host ::ng-deep .po-lg-8,
-:host ::ng-deep .po-md-8,
-:host ::ng-deep .po-sm-8,
-:host ::ng-deep .po-pm-8 :host ::ng-deep .po-lg-5,
-:host ::ng-deep .po-md-5,
-:host ::ng-deep .po-sm-5,
-:host ::ng-deep .po-pm-5 {
-  margin-left: 150px;
-  background-color: white;
-  border-radius: 25px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  margin-top: 25px;
-  margin-left: 28px;
-  width: 97%;
-}

@@ -20,24 +20,22 @@ export class Generics {
     'australia',
   ];
   static lsStates: Array<string> = [
-    'brazil',
-    'india',
-    'russia',
-    'south-africa',
-    'chile',
-    'pakistan',
-    'iran',
-    'italy',
-    'france',
-    'spain',
-    'new-zealand',
-    'australia',
+    "AM",
+    "BA",
+    "CE",
+    "ES",
+    "GO",
+    "MG",
+    "PA",
+    "RJ",
+    "RS",
+    "SC",
+    "SP",
+    "SE",
+    "TO",
+    "DF"    
   ];
   static lsMesesConsulta: Array<PoSelectOption> = [
-    {
-      label: 'Janeiro/2020',
-      value: '2020-01',
-    },
     {
       label: 'Fevereiro/2020',
       value: '2020-02',
@@ -101,6 +99,18 @@ export class Generics {
       lsCountryOptions.push({ value: value, label: label });
     });
     return lsCountryOptions;
+  }
+
+  makeStatesCombo(): Array<PoSelectOption> {
+    let lsStateOptions: Array<PoSelectOption> = [];
+
+    Generics.lsStates.forEach((item)=>{
+      let value = item;
+      let label = item;
+      lsStateOptions.push( { value: value, label: label } )
+    })
+
+    return lsStateOptions
   }
 
   static calcPeriodo(

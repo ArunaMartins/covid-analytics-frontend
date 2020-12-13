@@ -6,3 +6,21 @@ body { margin: 0; font-family: 'Rokkitt', serif !important; }
     font-family: Rokkitt !important;
     
 }
+
+
+.po-wrapper,
+.po-wrapper-menu-panel {
+    background-color: #fff;
+    max-height: auto;
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 120px !important;
+}
+
+.loadingOverlayCover {
+	position: relative !important;
+}
+
+.loadingOverlayCover .po-overlay-absolute {
+	position: absolute !important;
+}

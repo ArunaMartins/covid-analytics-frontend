@@ -19,6 +19,7 @@ import { PoTemplatesModule } from '@po-ui/ng-templates';
     AppRoutingModule,
     ChartsModule,
     PoModule,
+    PoTemplatesModule,
     RouterModule.forRoot([]),
     PoTemplatesModule
   ],

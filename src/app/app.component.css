@@ -1,9 +1,3 @@
-.background {
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: 436px 1005px;
-  margin-left: 16px;
-}
 
 :host ::ng-deep .po-menu-collapse-button,
 :host ::ng-deep .po-menu-item,

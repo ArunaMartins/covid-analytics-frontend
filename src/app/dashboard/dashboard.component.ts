@@ -300,4 +300,34 @@ export class DashboardComponent implements OnInit, AfterContentInit {
       });
     });
   }
+
+  estadoSelecionado: string;
+  lineChartEstadoData: ChartDataSets[];
+
+  changeEstado(estadoSelecionado: string) {
+    if (this.slPeriodo.selectedValue == undefined) {
+      this.poNotification.error(
+        'Selecione o período para ver a evolução do COVID no estado selecionado!'
+      );
+    }
+
+    this.estadoSelecionado = estadoSelecionado;
+    const req = this.http.getEstados(this.slPeriodo.selectedValue, [
+      estadoSelecionado,
+    ]);
+    req.observer.subscribe((response: any) => {
+      this.lineChartEstadoData = [];
+      response.forEach((medicaoEstado) => {
+        let lsDados: Array<number> = [];
+        medicaoEstado.periodos.forEach((periodo) => {
+          lsDados = [...lsDados, periodo.casos];
+        });
+
+        this.lineChartEstadoData.push({
+          data: lsDados,
+          label: medicaoEstado.nome,
+        });
+      });
+    });
+  }
 }

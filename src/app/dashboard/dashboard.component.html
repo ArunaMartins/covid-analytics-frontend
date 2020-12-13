@@ -82,22 +82,20 @@
       </h3>
       <po-select
         class="po-pull-right po-lg-4 po-md-4 po-sm-12"
-        p-placeholder="Selecione o Estado"
-        [p-options]="lsEstadual"
-        (p-change)="changeEstado($event)"
+        p-placeholder="Selecione o pais"
+        [p-options]="lsPaises"
+        (p-change)="changePais($event)"
       ></po-select>
     </div>
     <canvas
       baseChart
       width="400"
       height="120"
-      [datasets]="lineChartEstadualData"
-      [labels]="footerCasosCovidEstados"
-      [options]="lineChartComparativeEstadualOptions"
+      [datasets]="lineChartEstadoData"
+      [labels]="footerCasosCovidMundo"
+      [options]="lineChartOptions"
       [colors]="lineChartColors"
       [chartType]="lineChartType"
     ></canvas>
   </po-container>
 </body>
-
-<!-- [colors]="graphEvoLineProp" -->

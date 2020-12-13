@@ -1,24 +1,23 @@
 <body>
-
   <po-select
     class="po-lg-4 po-md-4 po-sm-4"
     #selPeriodo
     p-placeholder="Selecione um período"
     [p-options]="lsPeriodos"
     (p-change)="changePeriodo($event)"
+    style="background-color: #f0f4f9"
   ></po-select>
-  <po-input 
+  <po-input
     class="po-lg-8 po-md-8 po-sm-8"
     p-placeholder="Informe o Token Bearer"
-    (p-change)="changeToken($event)"></po-input>
+    (p-change)="changeToken($event)"
+    style="background-color: #f0f4f9"
+  ></po-input>
   <po-container class="po-lg-12 po-md-12 po-sm-12 po-mb-2 loadingOverlayCover">
     <div>
       <h3 class="title-graph">Casos de Covid pelo Mundo no Período</h3>
     </div>
-    <po-loading-overlay
-      *ngIf="loadingGlobal"
-      p-text="Carregando dados"
-    >
+    <po-loading-overlay *ngIf="loadingGlobal" p-text="Carregando dados">
     </po-loading-overlay>
     <canvas
       class="graphGlobal"
@@ -36,9 +35,7 @@
     <div>
       <h3 class="title-graph">Comparativo de Casos de Covid pelo Mundo</h3>
     </div>
-    <po-loading-overlay
-    p-text="Carregando dados"
-      *ngIf="loadingCompareGlobal">
+    <po-loading-overlay p-text="Carregando dados" *ngIf="loadingCompareGlobal">
     </po-loading-overlay>
     <canvas
       class="pieGlobal"
@@ -63,9 +60,7 @@
         (p-change)="changePais($event)"
       ></po-select>
     </div>
-    <po-loading-overlay
-    p-text="Carregando dados"
-      *ngIf="loadingPais">
+    <po-loading-overlay p-text="Carregando dados" *ngIf="loadingPais">
     </po-loading-overlay>
     <canvas
       baseChart
@@ -82,10 +77,8 @@
     <div>
       <h3 class="title-graph">Comparativo de Casos de Covid pelos Estados</h3>
     </div>
-    <po-loading-overlay
-    p-text="Carregando dados"
-      *ngIf="loadingCompareState">
-    </po-loading-overlay>    
+    <po-loading-overlay p-text="Carregando dados" *ngIf="loadingCompareState">
+    </po-loading-overlay>
     <canvas
       class="pieEstadual"
       width="400"
@@ -109,10 +102,8 @@
         (p-change)="changeEstado($event)"
       ></po-select>
     </div>
-    <po-loading-overlay
-    p-text="Carregando dados"
-      *ngIf="loadingState">
-    </po-loading-overlay>  
+    <po-loading-overlay p-text="Carregando dados" *ngIf="loadingState">
+    </po-loading-overlay>
     <canvas
       baseChart
       width="400"

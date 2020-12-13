@@ -186,6 +186,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   }
 
   changePeriodo(periodoSelecionado: string) {
+    if (!this.http.validAuth())
+      return 
+
     const req = this.http.getPaises(periodoSelecionado, Generics.lsCountries);
     const reqEstado = this.http.getEstados(periodoSelecionado, Generics.lsStates)
     const arrPeriodo = periodoSelecionado.split('-');
@@ -241,8 +244,13 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         this.lsLinhasPaises = [...this.lsLinhasPaises, newLine];
       });
 
-    this.loadingGlobal = false;
-    this.loadingCompareGlobal = false;
+      this.loadingGlobal = false;
+      this.loadingCompareGlobal = false;
+    },
+    (error: any)=>{
+      this.http.errorHttp(error)
+      this.loadingGlobal = false;
+      this.loadingCompareGlobal = false;
     });
 
     reqEstado.observer.subscribe((response: any)=>{
@@ -258,6 +266,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
           .replace('-', ' '))
         this.pieChartComparativeEstadualData.push(somaEstado)
       });
+      this.loadingCompareState = false;
+    },
+    (error: any)=>{
+      this.http.errorHttp(error)
       this.loadingCompareState = false;
     })
 
@@ -324,6 +336,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   lineChartPlugins = [];
 
   changePais(paisSelecionado: string) {
+    if (!this.http.validAuth())
+      return 
+
     if (this.slPeriodo.selectedValue == undefined) {
       this.poNotification.error(
         'Selecione o período para ver a evolução do COVID no país selecionado!'
@@ -346,6 +361,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         this.lineChartData.push({ data: lsDados, label: medicaoPais.nome });
       });
       this.loadingPais = false;
+    },
+    (error: any)=>{
+      this.http.errorHttp(error)
+      this.loadingPais = false;
     });
   }
 
@@ -355,6 +374,9 @@ export class DashboardComponent implements OnInit, AfterContentInit {
   ];
 
   changeEstado(estadoSelecionado: string) {
+    if (!this.http.validAuth())
+      return 
+
     if (this.slPeriodo.selectedValue == undefined) {
       this.poNotification.error(
         'Selecione o período para ver a evolução do COVID no estado selecionado!'
@@ -383,6 +405,10 @@ export class DashboardComponent implements OnInit, AfterContentInit {
           .replace('-', ' ')
         });
       });
+      this.loadingState = false;
+    },
+    (error: any)=>{
+      this.http.errorHttp(error)
       this.loadingState = false;
     });
   }

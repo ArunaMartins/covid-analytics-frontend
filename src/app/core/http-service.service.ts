@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Generics } from './generics';
+import { PoNotificationService } from '@po-ui/ng-components';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HttpServiceService {
 	auth: string = "";
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, private poNotification: PoNotificationService) { }
 
 	private setQueryParamsPaises(periodo: string, paises: string): { httpParams: HttpParams, quantidadeDias: number, httpHeader: HttpHeaders  }{
 		let params = new HttpParams();
@@ -49,4 +50,20 @@ export class HttpServiceService {
 		return { observer: this.http.get('/cov/estado', { params: arrParams.httpParams, headers: arrParams.httpHeader }), quantDias: arrParams.quantidadeDias }
 	}
 
+	validAuth(){
+		let lReturn = true
+		if (this.auth == undefined || this.auth == ""){
+			lReturn = false;
+			this.poNotification.error("Favor informar o Token")
+		}
+		return lReturn
+	}
+
+	errorHttp(httpResponse: HttpErrorResponse){
+		if (httpResponse.status == 403){
+			this.poNotification.error("O Token informado é invalido!")
+		} else {
+			this.poNotification.error(httpResponse.message);
+		}
+	}
 }

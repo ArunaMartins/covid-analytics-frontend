@@ -1,9 +1,9 @@
 
 const proxy = [
 	{
-		context: "/cov",
-		target: "http://localhost:8088/covid-web-api/covid",
-		pathRewrite: { "^/cov": "" },
+		context: "/covidWeb",
+		target: "https://teste-covid-web-api.herokuapp.com/covid-web-api",
+		pathRewrite: { "^/covidWeb": "" },
 	}
 ];
 module.exports = proxy;

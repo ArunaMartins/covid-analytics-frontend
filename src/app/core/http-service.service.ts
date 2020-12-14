@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Generics } from './generics';
 import { PoNotificationService } from '@po-ui/ng-components';
+import { environment } from 'src/environments/environment';
+
+//const urlCovidBackend = environment.production ? 'https://teste-covid-web-api.herokuapp.com/covid-web-api/covid' : '/cov'
+const urlCovidBackend = 'https://teste-covid-web-api.herokuapp.com/covid-web-api/covid'// : '/cov'
 
 @Injectable({
 	providedIn: 'root'
@@ -27,7 +31,7 @@ export class HttpServiceService {
 
 	getPaises(periodo: string, paises: Array<string> ){
 		let arrParams = this.setQueryParamsPaises(periodo, paises.join(',') )
-		return { observer: this.http.get('/cov/pais', { params: arrParams.httpParams, headers: arrParams.httpHeader }), quantDias: arrParams.quantidadeDias }
+		return { observer: this.http.get(urlCovidBackend + '/pais', { params: arrParams.httpParams, headers: arrParams.httpHeader }), quantDias: arrParams.quantidadeDias }
 	}
 
 	private setQueryParamsEstados(periodo: string, estados: string): { httpParams: HttpParams, quantidadeDias: number, httpHeader: HttpHeaders }{
@@ -47,7 +51,7 @@ export class HttpServiceService {
 
 	getEstados(periodo: string, estados: Array<string> ){
 		let arrParams = this.setQueryParamsEstados(periodo, estados.join(',') )
-		return { observer: this.http.get('/cov/estado', { params: arrParams.httpParams, headers: arrParams.httpHeader }), quantDias: arrParams.quantidadeDias }
+		return { observer: this.http.get(urlCovidBackend + '/estado', { params: arrParams.httpParams, headers: arrParams.httpHeader }), quantDias: arrParams.quantidadeDias }
 	}
 
 	validAuth(){

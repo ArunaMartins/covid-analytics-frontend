@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.js --disable-host-check",
+    "start": "node server.js",
+    "start:ng": "ng serve --proxy-config proxy.config.js --disable-host-check",
     "serve": "ng serve --disable-host-check",
     "build": "ng build",
     "test": "ng test",
@@ -24,6 +25,7 @@
     "@po-ui/ng-components": "^3.14.0",
     "@po-ui/ng-templates": "^3.14.0",
     "chart.js": "^2.9.4",
+    "express": "^4.17.1",
     "ng2-charts": "^2.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

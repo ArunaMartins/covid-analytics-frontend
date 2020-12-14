@@ -5,7 +5,7 @@ import { PoNotificationService } from '@po-ui/ng-components';
 import { environment } from 'src/environments/environment';
 
 //const urlCovidBackend = environment.production ? 'https://teste-covid-web-api.herokuapp.com/covid-web-api/covid' : '/cov'
-const urlCovidBackend = 'https://teste-covid-web-api.herokuapp.com/covid-web-api/covid'// : '/cov'
+const urlCovidBackend = '/cov'
 
 @Injectable({
 	providedIn: 'root'
